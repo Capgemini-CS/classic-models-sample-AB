@@ -1,10 +1,23 @@
  ------------------------------------------------------CREATE VIEW -----------------------------------------------------
+-------------------------------------CUSTOMER WHO HAD THE MOST EXPENSIVE ORDER------------------------------------------
+
 
  CREATE VIEW customer_orders_price AS ( SELECT c.customerName AS 'CUSTOMER_NAME', MAX(p.buyPrice) AS 'PRODUCT_PRICE'
  FROM customers c
  LEFT JOIN orders o ON c.customerNumber = o.customercustomer_orders_priceNumber
  LEFT JOIN orderdetails od ON o.orderNumber = od.orderNumber
  LEFT JOIN products p ON od.productCode = p.productCode);
+
+
+  ------------------------------------------------------CREATE VIEW -----------------------------------------------------
+ ------------------------------------------------SELECT PAYMENTS UNDER 30000.00------------------------------------------
+
+  CREATE VIEW select_payments_view AS
+  SELECT customerNumber AS "CUSTOMER_NUMBER", amount AS "AMOUNT"
+  FROM payments
+  WHERE amount < 30000.00;
+
+
 
  -------------------------------------------------------CREATE TABLE CUSTOMER ------------------------------------------
 

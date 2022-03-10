@@ -40,7 +40,7 @@ FROM classicmodels.orders o LEFT JOIN classicmodels.customers c ON o.customerNum
 GROUP BY o.customerNumber;
 
 
- --------------------------------------VIEW - SELECT THE CUSTOMER HOW BOUGHT THE MOST EXPENSIVE PRODUCT------------
+ --------------------------------------VIEW - SELECT THE CUSTOMER WHO BOUGHT THE MOST EXPENSIVE PRODUCT-----------------
 
 
  SELECT c.customerName AS 'CUSTOMER_NAME', MAX(p.buyPrice) AS 'PRODUCT_PRICE'
@@ -50,7 +50,7 @@ GROUP BY o.customerNumber;
  LEFT JOIN products p ON od.productCode = p.productCode);
 
 
---------------------------------------SELECT THE NUMBER OF PRODUCTS FOR EACH PRODUCT LINE-------------------------
+--------------------------------------SELECT THE NUMBER OF PRODUCTS FOR EACH PRODUCT LINE-------------------------------
 
 
  SELECT COUNT(p.productCode) AS 'NUMBER_OF_PRODUCTS', p.productLine AS "PRODUCT_LINE"
@@ -59,7 +59,7 @@ GROUP BY o.customerNumber;
  ORDER BY NUMBER_OF_PRODUCTS DESC;
 
 
- --------------------------------------SELECT THE EMPLOYEE HOW HAS JOB TITLE PRESIDENT-------------------------
+ --------------------------------------SELECT THE EMPLOYEE WHO HAS JOB TITLE PRESIDENT----------------------------------
 
 
  SELECT firstName AS "FIRST_NAME", lastName AS "LAST_NAME"
@@ -67,7 +67,7 @@ GROUP BY o.customerNumber;
  WHERE jobTitle = (SELECT jobTitle FROM employees WHERE employeeNumber = 1002)
 
 
---------------------------------------SELECT CUSTOMERS FROM USA WITH CREDIT LIMIT UNDER 45300.00------------
+--------------------------------------SELECT CUSTOMERS FROM USA WITH CREDIT LIMIT UNDER 45300.00------------------------
 
 
  SELECT * FROM customers
@@ -75,7 +75,7 @@ GROUP BY o.customerNumber;
  ORDER BY creditLimit DESC;
 
 
---------------------------------------SELECT QUANTITY FOR EACH ORDERED PRODUCT------------
+-----------------------------------------SELECT QUANTITY FOR EACH ORDERED PRODUCT---------------------------------------
 
 
 SELECT productCode AS "PRODUCT_CODE",quantityOrdered AS "QUANTITY_ORDERED"
@@ -85,7 +85,7 @@ SELECT productCode FROM products
 );
 
 
- --------------------------- SELECT ALL EMPLOYEES WITH OFFICE AND PHONE NUMBER -------------------------
+ --------------------------- SELECT ALL EMPLOYEES WITH OFFICE AND PHONE NUMBER -----------------------------------------
  SELECT
  employees.lastName AS "LAST_NAME", employees.firstName AS "LAST_NAME",
  offices.city AS "OFFICE" , offices.phone AS "PHONE_NUMBER"
@@ -93,13 +93,13 @@ SELECT productCode FROM products
  LEFT JOIN classicmodels.offices ON employees.officeCode = offices.officeCode;
 
 
-  --------------------------   ALL PRODUCTS WITH THEIR PRODUCT LINE -------------------------------------
+  ------------------------------------ SELECT ALL PRODUCTS WITH THEIR PRODUCT LINE -------------------------------------
   SELECT products.productName, products.quantityInStock, productlines.textDescription
   FROM products
   LEFT JOIN productlines ON products.productLine = productlines.productLine;
 
 
--------------------------   SELECT CUSTOMER NAME WITH TOTAL NUMBER OF PRODUCTS  -------------------------------------
+------------------------------- SELECT CUSTOMER NAME WITH TOTAL NUMBER OF PRODUCTS  ------------------------------------
   SELECT customerName AS CUSTOMER,
   COUNT(productCode) AS `TOTAL PRODUCTS`
   FROM  customers
@@ -107,3 +107,5 @@ SELECT productCode FROM products
   LEFT JOIN orderdetails ON orderdetails.orderNumber = orders.orderNumber
   GROUP BY (customers.customerNumber);
 
+----------------------------------------SELECT ALL RECORDS FROM VIEW ---------------------------------------------------
+ SELECT * FROM select_payments_view
