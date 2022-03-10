@@ -40,16 +40,6 @@ FROM classicmodels.orders o LEFT JOIN classicmodels.customers c ON o.customerNum
 GROUP BY o.customerNumber;
 
 
- --------------------------------------SELECT THE CUSTOMER HOW BOUGHT THE MOST EXPENSIVE PRODUCT------------------
-
-
-SELECT c.customerName AS 'CUSTOMER_NAME', MAX(p.buyPrice) AS 'PRODUCT_PRICE'
-FROM customers c
-LEFT JOIN orders o ON c.customerNumber = o.customerNumber
-LEFT JOIN orderdetails od ON o.orderNumber = od.orderNumber
-LEFT JOIN products p ON od.productCode = p.productCode;
-
-
  --------------------------------------VIEW - SELECT THE CUSTOMER HOW BOUGHT THE MOST EXPENSIVE PRODUCT------------
 
 
@@ -93,3 +83,27 @@ FROM orderdetails
 WHERE productCode IN (
 SELECT productCode FROM products
 );
+
+
+ --------------------------- SELECT ALL EMPLOYEES WITH OFFICE AND PHONE NUMBER -------------------------
+ SELECT
+ employees.lastName AS "LAST_NAME", employees.firstName AS "LAST_NAME",
+ offices.city AS "OFFICE" , offices.phone AS "PHONE_NUMBER"
+ FROM classicmodels.employees
+ LEFT JOIN classicmodels.offices ON employees.officeCode = offices.officeCode;
+
+
+  --------------------------   ALL PRODUCTS WITH THEIR PRODUCT LINE -------------------------------------
+  SELECT products.productName, products.quantityInStock, productlines.textDescription
+  FROM products
+  LEFT JOIN productlines ON products.productLine = productlines.productLine;
+
+
+-------------------------   SELECT CUSTOMER NAME WITH TOTAL NUMBER OF PRODUCTS  -------------------------------------
+  SELECT customerName AS CUSTOMER,
+  COUNT(productCode) AS `TOTAL PRODUCTS`
+  FROM  customers
+  LEFT JOIN orders ON customers.customerNumber = orders.customerNumber
+  LEFT JOIN orderdetails ON orderdetails.orderNumber = orders.orderNumber
+  GROUP BY (customers.customerNumber);
+
